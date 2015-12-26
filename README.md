@@ -1,6 +1,9 @@
 mkpass
 ======
 
+
+[![Build Status](https://travis-ci.org/andytom/mkpass.svg?branch=master)](https://travis-ci.org/andytom/mkpass)
+
 A simple commandline password generator based on the
 [xkcd - Password Strength](https://xkcd.com/936/) comic.
 
