@@ -13,6 +13,8 @@ import (
 	"strings"
 )
 
+const Version = "0.0.1"
+
 /* Reads a file of words, filters the words and returns an array of words.
  *
  * path: Path to the file to read (each line is a different word)
@@ -100,18 +102,26 @@ func main() {
 	// Parse Arguments
 	var numberOfWords, minLenOfWords int
 	var wordFile string
+	var showVersion bool
 
 	flag.IntVar(&numberOfWords, "n", 4, "The number of words to generate")
 	flag.IntVar(&minLenOfWords, "l", 6, "The minimum lenght of each word")
 	flag.StringVar(&wordFile, "f", "/usr/share/dict/words", "A file that contains possible words (one per line)")
+	flag.BoolVar(&showVersion, "v", false, "Show the version")
 
 	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "%s version %s\n", os.Args[0], Version)
 		fmt.Fprintf(os.Stderr, "Usage: %s [options]\n", os.Args[0])
 		fmt.Fprintf(os.Stderr, "\nOptions\n")
 		flag.PrintDefaults()
 	}
 
 	flag.Parse()
+
+	if showVersion {
+		fmt.Println(Version)
+		os.Exit(0)
+	}
 
 	// Go to Work
 	dict, err := readDict(wordFile, minLenOfWords)

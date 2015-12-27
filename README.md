@@ -52,6 +52,9 @@ Testing can be run using the built go test framework.
 go test
 ``
 
+Automatic testing is also done using [Travis CI](https://travis-ci.org/andytom/mkpass)
+against all major version since v1.1.
+
 Licence
 -------
 
