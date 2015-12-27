@@ -75,7 +75,7 @@ func genPassword(dict []string, numberOfWords int) ([]string, error) {
 	for i := 0; i < numberOfWords; i++ {
 		word, err := getRandomWord(dict)
 		if err != nil {
-			return []string{}, errors.New("Unable to generate a word from the dictionary")
+			return []string{}, err
 		}
 		words = append(words, word)
 	}
