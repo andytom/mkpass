@@ -21,8 +21,8 @@ import (
  */
 func readDict(path string, minLen int) ([]string, error) {
 	// Build the regexp to use as the filter
-	FilterRegexp := fmt.Sprintf("^[[:word:]]{%d,}$", minLen)
-	validWord := regexp.MustCompile(FilterRegexp)
+	filterRegexp := fmt.Sprintf("^[[:word:]]{%d,}$", minLen)
+	validWord := regexp.MustCompile(filterRegexp)
 
 	file, err := os.Open(path)
 	if err != nil {
