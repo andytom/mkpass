@@ -36,10 +36,9 @@ func readDict(path string, minLen int) ([]string, error) {
 	for scanner.Scan() {
 		var line = scanner.Text()
 		// Filter out invalid lines
-		if !validWord.MatchString(line) {
-			continue
+		if validWord.MatchString(line) {
+			lines = append(lines, line)
 		}
-		lines = append(lines, line)
 	}
 	return lines, scanner.Err()
 }
