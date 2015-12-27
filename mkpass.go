@@ -21,8 +21,8 @@ import (
  */
 func readDict(path string, minLen int) ([]string, error) {
 	// Build the regexp to use as the filter
-	FilterRegexp := fmt.Sprintf("^[[:word:]]{%d,}$", minLen)
-	validWord := regexp.MustCompile(FilterRegexp)
+	filterRegexp := fmt.Sprintf("^[[:word:]]{%d,}$", minLen)
+	validWord := regexp.MustCompile(filterRegexp)
 
 	file, err := os.Open(path)
 	if err != nil {
@@ -36,10 +36,9 @@ func readDict(path string, minLen int) ([]string, error) {
 	for scanner.Scan() {
 		var line = scanner.Text()
 		// Filter out invalid lines
-		if !validWord.MatchString(line) {
-			continue
+		if validWord.MatchString(line) {
+			lines = append(lines, line)
 		}
-		lines = append(lines, line)
 	}
 	return lines, scanner.Err()
 }
@@ -76,7 +75,7 @@ func genPassword(dict []string, numberOfWords int) ([]string, error) {
 	for i := 0; i < numberOfWords; i++ {
 		word, err := getRandomWord(dict)
 		if err != nil {
-			return []string{}, errors.New("Unable to generate a word from the dictionary")
+			return []string{}, err
 		}
 		words = append(words, word)
 	}
