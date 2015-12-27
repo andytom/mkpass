@@ -23,11 +23,10 @@ can install using.
 go install
 ``
 
-If not you can copy the complied binary into a directory in your ``$PATH``
+If not you can copy the complied binary into a directory in your ``$PATH``.
 
-By default mkpass reads ``/usr/share/dict/words`` as it's word file.
-On Debian this can be installed using the dictionary packages such as
-``wbritish`` or ``wamerican`` packages.
+By default mkpass reads the [Unix words](https://en.wikipedia.org/wiki/Words_%28Unix%29)
+file (``/usr/share/dict/words``) as it's input file.
 
 Usage
 -----
