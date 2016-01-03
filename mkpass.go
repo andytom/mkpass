@@ -86,7 +86,7 @@ func genPassword(dict []string, numberOfWords int) ([]string, error) {
 
 func init() {
 	// Seed math/rand using crypto/rand
-	max := *big.NewInt(9223372036854775807)
+	max := *big.NewInt(9223372036854775807) // largest int64
 
 	seed, err := cRand.Int(cRand.Reader, &max)
 	if err != nil {
@@ -107,7 +107,7 @@ func main() {
 	flag.IntVar(&numberOfWords, "n", 4, "The number of words to generate")
 	flag.IntVar(&minLenOfWords, "l", 6, "The minimum lenght of each word")
 	flag.StringVar(&wordFile, "f", "/usr/share/dict/words", "A file that contains possible words (one per line)")
-	flag.BoolVar(&showVersion, "v", false, "Show the version")
+	flag.BoolVar(&showVersion, "v", false, "Display the version")
 
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "%s version %s\n", os.Args[0], Version)
@@ -139,6 +139,6 @@ func main() {
 	}
 
 	// Return the result
-	fmt.Println("Your words are: ")
+	fmt.Println("Your words are:")
 	fmt.Println(strings.Join(words, " "))
 }
