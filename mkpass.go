@@ -1,3 +1,4 @@
+// mkpass - A simple password generator.
 package main
 
 import (
@@ -13,7 +14,7 @@ import (
 	"strings"
 )
 
-const Version = "0.0.1"
+const Version = "0.0.2"
 
 /* Reads a file of words, filters the words and returns an array of words.
  *
@@ -45,22 +46,6 @@ func readDict(path string, minLen int) ([]string, error) {
 	return lines, scanner.Err()
 }
 
-/* Returns a random string from the passed array
- *
- * dict: The array of string.
- */
-func getRandomWord(dict []string) (string, error) {
-	max := len(dict)
-	if max < 1 {
-		return "", errors.New("No words in the dict")
-	}
-	rand_index := mRand.Intn(max)
-
-	word := dict[rand_index]
-
-	return word, nil
-}
-
 /* Returns an array of the passed length containing randoms words from the
  * passed array.
  *
@@ -71,14 +56,19 @@ func genPassword(dict []string, numberOfWords int) ([]string, error) {
 	var words []string
 
 	if numberOfWords < 1 {
-		return []string{}, errors.New("Need a positive number of words")
+		return []string{}, errors.New("Need a positive number of words to generate")
+	}
+
+	max := len(dict)
+	if max < 1 {
+		return []string{}, errors.New("No words in the dict")
 	}
 
 	for i := 0; i < numberOfWords; i++ {
-		word, err := getRandomWord(dict)
-		if err != nil {
-			return []string{}, err
-		}
+		rand_index := mRand.Intn(max)
+
+		word := dict[rand_index]
+
 		words = append(words, word)
 	}
 	return words, nil
@@ -86,7 +76,7 @@ func genPassword(dict []string, numberOfWords int) ([]string, error) {
 
 func init() {
 	// Seed math/rand using crypto/rand
-	max := *big.NewInt(9223372036854775807)
+	max := *big.NewInt(9223372036854775807) // largest int64
 
 	seed, err := cRand.Int(cRand.Reader, &max)
 	if err != nil {
@@ -107,7 +97,7 @@ func main() {
 	flag.IntVar(&numberOfWords, "n", 4, "The number of words to generate")
 	flag.IntVar(&minLenOfWords, "l", 6, "The minimum lenght of each word")
 	flag.StringVar(&wordFile, "f", "/usr/share/dict/words", "A file that contains possible words (one per line)")
-	flag.BoolVar(&showVersion, "v", false, "Show the version")
+	flag.BoolVar(&showVersion, "v", false, "Display the version")
 
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "%s version %s\n", os.Args[0], Version)
@@ -134,11 +124,12 @@ func main() {
 
 	words, err := genPassword(dict, numberOfWords)
 	if err != nil {
+		fmt.Println("Unable to generate a password")
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
 	// Return the result
-	fmt.Println("Your words are: ")
+	fmt.Println("Your words are:")
 	fmt.Println(strings.Join(words, " "))
 }
