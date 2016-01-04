@@ -14,7 +14,7 @@ import (
 	"strings"
 )
 
-const Version = "0.0.1"
+const Version = "0.0.2"
 
 /* Reads a file of words, filters the words and returns an array of words.
  *
