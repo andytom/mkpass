@@ -46,22 +46,6 @@ func readDict(path string, minLen int) ([]string, error) {
 	return lines, scanner.Err()
 }
 
-/* Returns a random string from the passed array
- *
- * dict: The array of string.
- */
-func getRandomWord(dict []string) (string, error) {
-	max := len(dict)
-	if max < 1 {
-		return "", errors.New("No words in the dict")
-	}
-	rand_index := mRand.Intn(max)
-
-	word := dict[rand_index]
-
-	return word, nil
-}
-
 /* Returns an array of the passed length containing randoms words from the
  * passed array.
  *
@@ -75,11 +59,16 @@ func genPassword(dict []string, numberOfWords int) ([]string, error) {
 		return []string{}, errors.New("Need a positive number of words")
 	}
 
+	max := len(dict)
+	if max < 1 {
+		return []string{}, errors.New("No words in the dict")
+	}
+
 	for i := 0; i < numberOfWords; i++ {
-		word, err := getRandomWord(dict)
-		if err != nil {
-			return []string{}, err
-		}
+		rand_index := mRand.Intn(max)
+
+		word := dict[rand_index]
+
 		words = append(words, word)
 	}
 	return words, nil

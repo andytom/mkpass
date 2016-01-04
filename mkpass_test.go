@@ -24,30 +24,6 @@ func stringInSlice(str string, list []string) bool {
 	return false
 }
 
-// Basic test to check that getRandomWord works.
-func TestGetRandomWord(t *testing.T) {
-	testDict := []string{"aa", "bb", "cc"}
-
-	first, _ := getRandomWord(testDict)
-
-	if !stringInSlice(first, testDict) {
-		t.Fatalf("Return '%s' which is not in %s", first, testDict)
-	}
-
-}
-
-// Test the error handling of getRandomWord
-func TestGetRandomWordErrorHandling(t *testing.T) {
-	// Should return an error if the dict is empty
-	emptyDict := []string{}
-
-	_, err := getRandomWord(emptyDict)
-
-	if err == nil {
-		t.Fatalf("No error when calling with an empty dict")
-	}
-}
-
 // Test readDict filters length correctly
 func TestReadDictLength(t *testing.T) {
 	path := "test_fixtures/length"
