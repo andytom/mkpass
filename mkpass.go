@@ -1,3 +1,4 @@
+// mkpass - A simple password generator.
 package main
 
 import (
