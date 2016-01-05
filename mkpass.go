@@ -56,12 +56,12 @@ func genPassword(dict []string, numberOfWords int) ([]string, error) {
 	var words []string
 
 	if numberOfWords < 1 {
-		return []string{}, errors.New("Need a positive number of words to generate")
+		return []string{}, errors.New("Need a positive number of words")
 	}
 
 	max := len(dict)
 	if max < 1 {
-		return []string{}, errors.New("No words in the dict")
+		return []string{}, errors.New("No words to choose from")
 	}
 
 	for i := 0; i < numberOfWords; i++ {
