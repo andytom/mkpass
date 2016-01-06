@@ -10,20 +10,6 @@ func init() {
 	rand.Seed(1)
 }
 
-/* Checks if the passed string is in the passed array
- *
- * str: The string we are looking for
- * list:: The list that we are searching in
- */
-func stringInSlice(str string, list []string) bool {
-	for _, item := range list {
-		if item == str {
-			return true
-		}
-	}
-	return false
-}
-
 // Test readDict filters length correctly
 func TestReadDictLength(t *testing.T) {
 	path := "test_fixtures/length"
@@ -51,6 +37,24 @@ func TestReadDictFilter(t *testing.T) {
 
 	if len(ret) != 0 {
 		t.Fatalf("readDict Returned %s which contains strings that fails the filter", ret)
+	}
+}
+
+// Test readDict returns an error for nonsence paths
+func TestTestReadDictNonsencePath(t *testing.T) {
+	_, err := readDict("not/a/real/file", 3)
+
+	if err == nil {
+		t.Fatalf("readDict didn't return an error for nonsence path")
+	}
+}
+
+// Test readDict returns an error when minlength is negative
+func TestTestReadDictNegativeLength(t *testing.T) {
+	_, err := readDict("test_fixtures/length", -1)
+
+	if err == nil {
+		t.Fatalf("readDict didn't return an error for negative minLen")
 	}
 }
 
@@ -85,7 +89,7 @@ func TestGenPasswordErrorHandlingZeroLen(t *testing.T) {
 	_, err := genPassword(testDict, numWords)
 
 	if err == nil {
-		t.Fatalf("genPassword didn't return an error 0 words")
+		t.Fatalf("genPassword didn't return an error with 0 words")
 	}
 }
 

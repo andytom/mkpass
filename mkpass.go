@@ -23,6 +23,10 @@ const Version = "0.0.2"
  *         length are filtered out.
  */
 func readDict(path string, minLen int) ([]string, error) {
+	if minLen < 0 {
+		return nil, errors.New("Minimum Length can't be negative")
+	}
+
 	// Build the regexp to use as the filter
 	filterRegexp := fmt.Sprintf("^[[:word:]]{%d,}$", minLen)
 	validWord := regexp.MustCompile(filterRegexp)
