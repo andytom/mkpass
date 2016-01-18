@@ -10,20 +10,6 @@ func init() {
 	rand.Seed(1)
 }
 
-/* Checks if the passed string is in the passed array
- *
- * str: The string we are looking for
- * list:: The list that we are searching in
- */
-func stringInSlice(str string, list []string) bool {
-	for _, item := range list {
-		if item == str {
-			return true
-		}
-	}
-	return false
-}
-
 // Test readDict filters length correctly
 func TestReadDictLength(t *testing.T) {
 	path := "test_fixtures/length"
@@ -85,7 +71,7 @@ func TestGenPasswordErrorHandlingZeroLen(t *testing.T) {
 	_, err := genPassword(testDict, numWords)
 
 	if err == nil {
-		t.Fatalf("genPassword didn't return an error 0 words")
+		t.Fatalf("genPassword didn't return an error with 0 words")
 	}
 }
 
