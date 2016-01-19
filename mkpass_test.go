@@ -40,6 +40,24 @@ func TestReadDictFilter(t *testing.T) {
 	}
 }
 
+// Test readDict returns an error for nonsence paths
+func TestTestReadDictNonsencePath(t *testing.T) {
+	_, err := readDict("not/a/real/file", 3)
+
+	if err == nil {
+		t.Fatalf("readDict didn't return an error for nonsence path")
+	}
+}
+
+// Test readDict returns an error when minlength is negative
+func TestTestReadDictNegativeLength(t *testing.T) {
+	_, err := readDict("test_fixtures/length", -1)
+
+	if err == nil {
+		t.Fatalf("readDict didn't return an error for negative minLen")
+	}
+}
+
 // Test genPassword works
 func TestGenPassword(t *testing.T) {
 	testDict := []string{"aa", "bb", "cc"}
