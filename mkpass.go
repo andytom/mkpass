@@ -95,7 +95,7 @@ func main() {
 	var showVersion bool
 
 	flag.IntVar(&numberOfWords, "n", 4, "The number of words to generate")
-	flag.IntVar(&minLenOfWords, "l", 6, "The minimum lenght of each word")
+	flag.IntVar(&minLenOfWords, "l", 6, "The minimum length of each word")
 	flag.StringVar(&wordFile, "f", "/usr/share/dict/words", "A file that contains possible words (one per line)")
 	flag.BoolVar(&showVersion, "v", false, "Display the version")
 
