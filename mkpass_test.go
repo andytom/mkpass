@@ -23,7 +23,7 @@ func TestReadDictLength(t *testing.T) {
 
 	for _, str := range ret {
 		if len(str) < minLen {
-			t.Fatalf("readDict Returned %s which contains '%s' that is less than %s", ret, str, minLen)
+			t.Fatalf("readDict Returned %s which contains '%s' that is less than %d", ret, str, minLen)
 		}
 	}
 }
